@@ -27,9 +27,6 @@ private Button deleteButton;
         openAlbum.setText("Open Album");
         createButton.setText("Create Album");
         deleteButton.setText("Delete Album");
-        for(int i=0; i<100; i++) {
-            listItems.add("dick and balls");
-        }
         adapter=new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
