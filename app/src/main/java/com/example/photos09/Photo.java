@@ -18,9 +18,8 @@ public class Photo implements Serializable {
         tags.add(new Tag(tagName, tagValue));
     }
 
-    // what data type?
-    public Image getImage() {
-        return new Image(file.toURI().toString());
+    public String getImage() {
+        return file.toURI().toString();
     }
 
     public ArrayList<Tag> getTags() {
