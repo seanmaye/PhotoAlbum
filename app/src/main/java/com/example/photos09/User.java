@@ -39,20 +39,31 @@ public class User implements Serializable {
         return albums;
     }
 
-    // return the actual photo? might have to deal with duplicate photos tho if there are multiple values for same name
-    // we would also have to walk it for tag values to display, which might just be more work
-    public ArrayList<String> getMatchingTags(String tagName, String tagTest) {
+    public ArrayList<String> getMatchingTags(String tagTestName, String tagTestValue) {
         ArrayList<String> ret = new ArrayList<String>();
         for (Album a : albums) {
             for (Photo p : a.photos) {
                 for (Tag t : p.tags) {
-                    if (t.name.equalsIgnoreCase(tagName)) {
+                    if (t.name.equalsIgnoreCase(tagTestName)) {
                         String value = t.value;
-                        if (value.length() > tagTest.length() && value.substring(0, tagTest.length()).equals(tagTest)) {
-                            if (!ret.contains(tagTest)) {
-                                ret.add(value);
-                            }
+                        if (value.startsWith(tagTestValue) && !ret.contains(tagTestValue)) {
+                            ret.add(value);
                         }
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
+    public ArrayList<Photo> getSearchResults(String tagTestName, String tagTestValue){
+        ArrayList<Photo> ret = new ArrayList<Photo>();
+        for (Album a : albums) {
+            for (Photo p : a.photos) {
+                for (Tag t : p.tags) {
+                    if (t.name.equalsIgnoreCase(tagTestName) && (t.value.equalsIgnoreCase(tagTestValue))
+                            && !ret.contains(p)){
+                        ret.add(p);
                     }
                 }
             }
