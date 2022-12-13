@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.io.File;
 
 public class Photos extends AppCompatActivity {
 private ListView listView;
@@ -22,11 +24,24 @@ private Button createButton;
 private Button openAlbum;
 private Button deleteButton;
 private ImageView imageView;
+
+    public static User user = new User();
     ArrayList<String> listItems=new ArrayList<String>();
     ArrayAdapter<String> adapter;
     int SELECT_PICTURE = 200;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        File test = new File("./users.dat");
+        if (test.exists()) {
+            try {
+                user = User.readApp();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photos_main);
         listView =(ListView) findViewById(R.id.listView);
