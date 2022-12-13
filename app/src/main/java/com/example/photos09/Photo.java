@@ -1,5 +1,7 @@
 package com.example.photos09;
 
+import android.media.Image;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
