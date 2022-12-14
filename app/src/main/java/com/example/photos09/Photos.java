@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,7 +30,8 @@ static Album passAlbum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        File test = new File("./users.dat");
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+        File test = new File(path, "." + "users.dat");
         if (test.exists()) {
             try {
                 user = User.readApp();

@@ -1,5 +1,7 @@
 package com.example.photos09;
 
+import android.os.Environment;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,8 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
-    public static final String storeDir = "."; //in the slides this said "dat" but we want to look in the current directory so use "."
-    public static final String storeFile = "users.dat";
+    static File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+    static File store = new File(path, "." + "users.dat");
     private static final long serialVersionUID = 1L;
 
     ArrayList<Album> albums;
@@ -78,14 +80,14 @@ public class User implements Serializable {
 
     public static void writeApp(User user) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(storeDir + File.separator + storeFile));
+                new FileOutputStream(store));
         oos.writeObject(user);
         oos.close();
     }
 
     public static User readApp() throws IOException, ClassNotFoundException {
         ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(storeDir + File.separator + storeFile));
+                new FileInputStream(store));
         User user = (User)ois.readObject();
         ois.close();
         return user;
