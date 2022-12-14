@@ -3,23 +3,28 @@ package com.example.photos09;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.io.IOException;
+
 public class AddPhoto extends AppCompatActivity {
     private Button selectButton;
     private Button addButton;
     private ImageView previewAdd;
     int SELECT_PICTURE = 200;
+    private Photo toAdd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_photo);
         selectButton = (Button) findViewById(R.id.selectButton);
         addButton = (Button) findViewById(R.id.addButton);
+        previewAdd = (ImageView)findViewById(R.id.previewAdd);
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,6 +34,11 @@ public class AddPhoto extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    Photos.passAlbum.addPhoto(toAdd);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Intent switchActivityIntent = new Intent(AddPhoto.this, OpenAlbum.class);
                 startActivity(switchActivityIntent);
             }
@@ -57,7 +67,8 @@ public class AddPhoto extends AppCompatActivity {
                 // Get the url of the image from data
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
-                    // update the preview image in the layout
+                    previewAdd.setImageURI(selectedImageUri);
+                    toAdd = new Photo(selectedImageUri.toString(),"Stock","Stock");
 
                 }
             }

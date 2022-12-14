@@ -21,6 +21,7 @@ public class Photos extends AppCompatActivity {
 private ListView listView;
 private Button createButton;
 private Button deleteButton;
+static Album passAlbum;
 
     public static User user = new User();
     ArrayList<Album> listItems=new ArrayList<Album>();
@@ -69,9 +70,9 @@ private Button deleteButton;
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String s = listView.getItemAtPosition(i).toString();
+                 passAlbum= (Album)listView.getItemAtPosition(i);
 
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), passAlbum.getName(), Toast.LENGTH_LONG).show();
 
                 Intent switchActivityIntent = new Intent(Photos.this, OpenAlbum.class);
                 startActivity(switchActivityIntent);

@@ -1,6 +1,7 @@
 package com.example.photos09;
 
 import android.media.Image;
+import android.net.Uri;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,16 +11,16 @@ import java.util.*;
 public class Photo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    File file;
+    String uri;
     ArrayList<Tag> tags = new ArrayList<Tag>();
 
-    public Photo(File file, String caption, String tagName, String tagValue) {
-        this.file = file;
+    public Photo(String uri, String tagName, String tagValue) {
+        this.uri = uri;
         tags.add(new Tag(tagName, tagValue));
     }
 
-    public String getImage() {
-        return file.toURI().toString();
+    public Uri getUri() {
+        return Uri.parse(uri);
     }
 
     public ArrayList<Tag> getTags() {

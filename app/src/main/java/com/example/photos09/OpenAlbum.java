@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class OpenAlbum extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private MyItemRecyclerViewAdapter programAdapter;
+
     private ImageView imageView;
     private TextView textViewTags;
     private  Button addPhotoButton;
@@ -40,6 +42,23 @@ public class OpenAlbum extends AppCompatActivity {
       LinearLayoutManager layoutManager
                 = new LinearLayoutManager(OpenAlbum.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        programAdapter = new MyItemRecyclerViewAdapter(this,Photos.passAlbum.getPhotos());
+        recyclerView.setAdapter(programAdapter);
+        if(programAdapter.getItemCount()!=0){
+            imageView.setImageURI(Photos.passAlbum.getPhotos().get(0).getUri());
+            String tags="";
+            for(Tag tag:Photos.passAlbum.getPhotos().get(0).getTags()){
+                tags+=tag.getTagValue()+",";
+            }
+            if(tags.length()>1) {
+                tags = tags.substring(0, tags.length() - 1);
+                textViewTags.setText(tags);
+            }else{
+                textViewTags.setText("");
+            }
+
+        }
+
         addPhotoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
