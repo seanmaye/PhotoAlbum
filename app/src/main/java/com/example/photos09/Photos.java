@@ -2,32 +2,30 @@ package com.example.photos09;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.io.File;
 
 public class Photos extends AppCompatActivity {
 private ListView listView;
 private Button createButton;
-private Button openAlbum;
 private Button deleteButton;
-private ImageView imageView;
 
     public static User user = new User();
-    ArrayList<String> listItems=new ArrayList<String>();
-    ArrayAdapter<String> adapter;
+    ArrayList<Album> listItems=new ArrayList<Album>();
+    ArrayAdapter<Album> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         File test = new File("./users.dat");
@@ -45,13 +43,12 @@ private ImageView imageView;
         setContentView(R.layout.photos_main);
         listView =(ListView) findViewById(R.id.listView);
         createButton = (Button)findViewById(R.id.createButton);
-        openAlbum = (Button)findViewById(R.id.openAlbum);
         deleteButton = (Button)findViewById(R.id.deleteButton);
 
-        openAlbum.setText("Open Album");
         createButton.setText("Create Album");
         deleteButton.setText("Delete Album");
-        adapter=new ArrayAdapter<String>(this,
+        listItems=user.getAlbumList();
+        adapter=new ArrayAdapter<Album>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
         listView.setAdapter(adapter);
@@ -62,12 +59,42 @@ private ImageView imageView;
                 createAlbum();;
             }
         });
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteAlbum();
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String s = listView.getItemAtPosition(i).toString();
+
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+
+                Intent switchActivityIntent = new Intent(Photos.this, OpenAlbum.class);
+                startActivity(switchActivityIntent);
+            }
+        });
+
 
     }
     private void createAlbum() {
         Intent switchActivityIntent = new Intent(this, CreateAlbum.class);
         startActivity(switchActivityIntent);
     }
+    private void deleteAlbum() {
+        Intent switchActivityIntent = new Intent(this, DeleteAlbum.class);
+        startActivity(switchActivityIntent);
+    }
+    private void openAlbum(){
+        Context context = getApplicationContext();
+        CharSequence text = listView.getSelectedItem().toString();
+        int duration = Toast.LENGTH_SHORT;
 
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
 
 }
