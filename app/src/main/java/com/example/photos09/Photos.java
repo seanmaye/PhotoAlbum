@@ -74,7 +74,6 @@ static Album passAlbum;
 
                  passAlbum= (Album)listView.getItemAtPosition(i);
 
-                Toast.makeText(getApplicationContext(), passAlbum.getName(), Toast.LENGTH_LONG).show();
 
                 Intent switchActivityIntent = new Intent(Photos.this, OpenAlbum.class);
                 startActivity(switchActivityIntent);
