@@ -39,12 +39,13 @@ public class User implements Serializable {
         return albums;
     }
 
-    public ArrayList<String> getMatchingTags(String tagTestName, String tagTestValue) {
+    public ArrayList<String> getMatchingTags(boolean person, boolean location, String tagTestValue) {
         ArrayList<String> ret = new ArrayList<String>();
         for (Album a : albums) {
             for (Photo p : a.photos) {
                 for (Tag t : p.tags) {
-                    if (t.name.equalsIgnoreCase(tagTestName)) {
+                    if (((person && t.name.equalsIgnoreCase("person")))
+                            || location && t.name.equalsIgnoreCase("location")) {
                         String value = t.value;
                         if (value.startsWith(tagTestValue) && !ret.contains(tagTestValue)) {
                             ret.add(value);
@@ -56,12 +57,14 @@ public class User implements Serializable {
         return ret;
     }
 
-    public ArrayList<Photo> getSearchResults(String tagTestName, String tagTestValue){
+    public ArrayList<Photo> getSearchResults(boolean person, boolean location, String tagTestValue){
         ArrayList<Photo> ret = new ArrayList<Photo>();
         for (Album a : albums) {
             for (Photo p : a.photos) {
                 for (Tag t : p.tags) {
-                    if (t.name.equalsIgnoreCase(tagTestName) && (t.value.equalsIgnoreCase(tagTestValue))
+                    if (((person && t.name.equalsIgnoreCase("person"))
+                            || (location && t.name.equalsIgnoreCase("location")))
+                            && (t.value.equalsIgnoreCase(tagTestValue))
                             && !ret.contains(p)){
                         ret.add(p);
                     }
