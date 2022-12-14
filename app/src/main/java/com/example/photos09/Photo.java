@@ -13,7 +13,7 @@ public class Photo implements Serializable {
 
     String uri;
     ArrayList<Tag> tags = new ArrayList<Tag>();
-
+    private boolean isChecked =false;
     public Photo(String uri, String tagName, String tagValue) {
         this.uri = uri;
         tags.add(new Tag(tagName, tagValue));
@@ -35,6 +35,13 @@ public class Photo implements Serializable {
     public void deleteTag(Tag tag) throws IOException {
         tags.remove(tag);
         User.writeApp(Photos.user);
+    }
+    public boolean isChecked(){
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 
 }

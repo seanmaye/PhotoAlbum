@@ -1,6 +1,7 @@
 package com.example.photos09;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -42,6 +44,7 @@ public class OpenAlbum extends AppCompatActivity {
       LinearLayoutManager layoutManager
                 = new LinearLayoutManager(OpenAlbum.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.HORIZONTAL));
         programAdapter = new MyItemRecyclerViewAdapter(this,Photos.passAlbum.getPhotos());
         recyclerView.setAdapter(programAdapter);
         if(programAdapter.getItemCount()!=0){
@@ -84,6 +87,7 @@ public class OpenAlbum extends AppCompatActivity {
         deletePhotoButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                Toast.makeText(OpenAlbum.this, programAdapter.getSelectedIndex(), Toast.LENGTH_SHORT).show();
 
             }
         });

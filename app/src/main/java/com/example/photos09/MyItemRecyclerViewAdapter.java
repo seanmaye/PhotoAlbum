@@ -1,6 +1,7 @@
 package com.example.photos09;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +16,34 @@ import java.util.List;
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
     Context context;
     List<Photo> photos;
-     int selectedPos = RecyclerView.NO_POSITION;
+    ImageView preview;
+     int selectedPos = 0;
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView image;
+        ImageView check;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image =itemView.findViewById(R.id.imageView2);
+            check=itemView.findViewById(R.id.imageView3);
+        }
+        void bind(final Photo photo){
+            if(selectedPos ==-1){
+                check.setVisibility(View.GONE);
+            }else{
+                if(selectedPos==getAdapterPosition()){
+                    check.setVisibility(View.VISIBLE);
+                }else{
+                    check.setVisibility(View.GONE);
+                }
+            }
         }
         @Override
         public void onClick(View view) {
             notifyItemChanged(selectedPos);
             selectedPos = getLayoutPosition();
             notifyItemChanged(selectedPos);
+            preview.findViewById(R.id.imageView);
+            preview.setImageURI(getSelected().getUri());
         }
     }
 
@@ -54,7 +71,16 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     public int getItemCount() {
         return photos.size();
     }
-    public Photo getSelected(){
-        return photos.get(selectedPos);
+    public Photo getSelected() {
+        if(selectedPos != -1){
+            return photos.get(selectedPos);
+        }
+        return null;
+    }
+    public int getSelectedIndex() {
+        if(selectedPos != -1){
+            return selectedPos;
+        }
+        return -1;
     }
 }
