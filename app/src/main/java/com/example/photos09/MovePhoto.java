@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ public class MovePhoto extends AppCompatActivity {
         previewImage=(ImageView) findViewById(R.id.previewImage);
         listView=(ListView) findViewById(R.id.listView);
         listItems=Photos.user.getAlbumList();
-        listItems.remove(Photos.passAlbum);
         adapter=new ArrayAdapter<Album>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
@@ -38,6 +38,10 @@ public class MovePhoto extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Album toSend= (Album)listView.getItemAtPosition(i);
+                if(toSend.getName().equals(Photos.passAlbum.getName())){
+                    Toast.makeText(MovePhoto.this, "Cannot Move photo to its own album!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 try {
                     Photos.passAlbum.movePhoto(OpenAlbum.passPhoto,toSend);
                 } catch (IOException e) {

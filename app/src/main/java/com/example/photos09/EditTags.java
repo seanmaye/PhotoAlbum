@@ -39,7 +39,7 @@ public class EditTags extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    if(personOrLocation.getText().toString().trim().equalsIgnoreCase("person") ||personOrLocation.getText().toString().trim().equalsIgnoreCase("person")){
+                    if(personOrLocation.getText().toString().trim().equalsIgnoreCase("person") ||personOrLocation.getText().toString().trim().equalsIgnoreCase("location")){
                         OpenAlbum.passPhoto.addTag(personOrLocation.getText().toString().trim(),value.getText().toString().trim());
                     }else{
                         Toast.makeText(EditTags.this, "Incorrect tag name, must be Person or Location", Toast.LENGTH_SHORT).show();

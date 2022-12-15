@@ -36,6 +36,7 @@ public class OpenAlbum extends AppCompatActivity {
     private Button goLeftButton;
     private Button goRightButton;
     private Button movePhotoButton;
+    private Button button3;
     private ArrayList<ImageView> listImages = new ArrayList<ImageView>();
     static int passIndex=0;
     static Photo passPhoto;
@@ -52,8 +53,8 @@ public class OpenAlbum extends AppCompatActivity {
         textView9 = (TextView)findViewById(R.id.textView9);
         goLeftButton = (Button) findViewById(R.id.goLeftButton);
         goRightButton = (Button) findViewById(R.id.goRightButton);
-
         listView = (ListView) findViewById(R.id.listView);
+        button3=(Button)findViewById(R.id.button3);
         ListViewAdapter adapter = new ListViewAdapter(this, Photos.passAlbum.getPhotos());
         listView.setAdapter(adapter);
         textView9.setText(Photos.passAlbum.getName());
@@ -76,6 +77,13 @@ public class OpenAlbum extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent switchActivityIntent = new Intent(OpenAlbum.this, AddPhoto.class);
+                startActivity(switchActivityIntent);
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent switchActivityIntent = new Intent(OpenAlbum.this, Photos.class);
                 startActivity(switchActivityIntent);
             }
         });
