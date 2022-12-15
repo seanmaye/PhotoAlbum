@@ -94,5 +94,49 @@ public class OpenAlbum extends AppCompatActivity {
 
             }
         });
+        goLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(displayPhoto>0){
+                    displayPhoto--;
+                    if (Photos.passAlbum.getPhotos().size() != 0) {
+                        imageView.setImageURI(Photos.passAlbum.getPhotos().get(displayPhoto).getUri());
+                        String tags = "";
+                        for (Tag tag : Photos.passAlbum.getPhotos().get(displayPhoto).getTags()) {
+                            tags += tag.getTagValue() + ",";
+                        }
+                        if (tags.length() > 1) {
+                            tags = tags.substring(0, tags.length() - 1);
+                            textViewTags.setText(tags);
+                        } else {
+                            textViewTags.setText("");
+                        }
+
+                    }
+                }
+            }
+        });
+        goRightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(displayPhoto<Photos.passAlbum.getPhotos().size()-1){
+                    displayPhoto++;
+                    if (Photos.passAlbum.getPhotos().size() != 0) {
+                        imageView.setImageURI(Photos.passAlbum.getPhotos().get(displayPhoto).getUri());
+                        String tags = "";
+                        for (Tag tag : Photos.passAlbum.getPhotos().get(displayPhoto).getTags()) {
+                            tags += tag.getTagValue() + ",";
+                        }
+                        if (tags.length() > 1) {
+                            tags = tags.substring(0, tags.length() - 1);
+                            textViewTags.setText(tags);
+                        } else {
+                            textViewTags.setText("");
+                        }
+
+                    }
+                }
+            }
+        });
     }
 }

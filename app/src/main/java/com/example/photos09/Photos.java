@@ -23,7 +23,7 @@ private ListView listView;
 private Button createButton;
 private Button deleteButton;
 static Album passAlbum;
-
+private Button searchButton;
     public static User user = new User();
     ArrayList<Album> listItems=new ArrayList<Album>();
     ArrayAdapter<Album> adapter;
@@ -47,7 +47,7 @@ static Album passAlbum;
         listView =(ListView) findViewById(R.id.listView);
         createButton = (Button)findViewById(R.id.createButton);
         deleteButton = (Button)findViewById(R.id.deleteButton);
-
+        searchButton = (Button)findViewById(R.id.searchButton);
         createButton.setText("Create Album");
         deleteButton.setText("Delete Album");
         listItems=user.getAlbumList();
@@ -66,6 +66,13 @@ static Album passAlbum;
             @Override
             public void onClick(View view) {
                 deleteAlbum();
+            }
+        });
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent switchActivityIntent = new Intent(Photos.this, Search.class);
+                startActivity(switchActivityIntent);
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -87,16 +94,13 @@ static Album passAlbum;
         startActivity(switchActivityIntent);
     }
     private void deleteAlbum() {
-        Intent switchActivityIntent = new Intent(this, DeleteAlbum.class);
-        startActivity(switchActivityIntent);
-    }
-    private void openAlbum(){
-        Context context = getApplicationContext();
-        CharSequence text = listView.getSelectedItem().toString();
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        if(user.getAlbumList().size()>0) {
+            Intent switchActivityIntent = new Intent(this, DeleteAlbum.class);
+            startActivity(switchActivityIntent);
+        }else{
+            Toast.makeText(Photos.this, "No Albums to delete", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 
 }

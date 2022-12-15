@@ -20,6 +20,18 @@
         app:layout_constraintVertical_bias="0.886" />
 
     <Button
+        android:id="@+id/searchButton"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:text="Search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.797" />
+
+    <Button
         android:id="@+id/deleteButton"
         android:layout_width="350dp"
         android:layout_height="50dp"

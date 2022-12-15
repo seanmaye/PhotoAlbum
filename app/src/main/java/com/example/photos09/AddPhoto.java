@@ -68,7 +68,7 @@ public class AddPhoto extends AppCompatActivity {
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
                     previewAdd.setImageURI(selectedImageUri);
-                    toAdd = new Photo(selectedImageUri.toString(),"Stock","Stock");
+                    toAdd = new Photo(selectedImageUri.toString(),"Location","Default");
 
                 }
             }
