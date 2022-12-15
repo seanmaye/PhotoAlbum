@@ -47,9 +47,9 @@ public class User implements Serializable {
             for (Photo p : a.photos) {
                 for (Tag t : p.tags) {
                     if (((person && t.name.equalsIgnoreCase("person")))
-                            || location && t.name.equalsIgnoreCase("location")) {
-                        String value = t.value;
-                            ret.add(value);
+                            || location && t.name.equalsIgnoreCase("location")
+                            && !ret.contains(t.value)){
+                        ret.add(t.value);
 
                     }
                 }
