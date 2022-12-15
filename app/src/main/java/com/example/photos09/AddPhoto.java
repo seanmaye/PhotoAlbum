@@ -50,7 +50,7 @@ public class AddPhoto extends AppCompatActivity {
         // intent of the type image
         Intent i = new Intent();
         i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
+        i.setAction(Intent.ACTION_OPEN_DOCUMENT);
 
         // pass the constant to compare it
         // with the returned requestCode
@@ -66,6 +66,8 @@ public class AddPhoto extends AppCompatActivity {
             if (requestCode == SELECT_PICTURE) {
                 // Get the url of the image from data
                 Uri selectedImageUri = data.getData();
+                getContentResolver().takePersistableUriPermission(selectedImageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 if (null != selectedImageUri) {
                     previewAdd.setImageURI(selectedImageUri);
                     toAdd = new Photo(selectedImageUri.toString(),"Location","Default");
