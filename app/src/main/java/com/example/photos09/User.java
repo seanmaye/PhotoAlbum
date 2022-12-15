@@ -41,7 +41,7 @@ public class User implements Serializable {
         return albums;
     }
 
-    public ArrayList<String> getMatchingTags(boolean person, boolean location, String tagTestValue) {
+    public ArrayList<String> getPossibleTags(boolean person, boolean location) {
         ArrayList<String> ret = new ArrayList<String>();
         for (Album a : albums) {
             for (Photo p : a.photos) {
@@ -49,9 +49,8 @@ public class User implements Serializable {
                     if (((person && t.name.equalsIgnoreCase("person")))
                             || location && t.name.equalsIgnoreCase("location")) {
                         String value = t.value;
-                        if (value.startsWith(tagTestValue) && !ret.contains(tagTestValue)) {
                             ret.add(value);
-                        }
+
                     }
                 }
             }
