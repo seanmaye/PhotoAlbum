@@ -30,6 +30,10 @@ private Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        String[] permissions = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"};
+        requestPermissions(permissions, 200);
+
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
         File test = new File(path, "." + "users.dat");
         if (test.exists()) {
@@ -42,7 +46,6 @@ private Button searchButton;
             }
         }
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.photos_main);
         listView =(ListView) findViewById(R.id.listView);
         createButton = (Button)findViewById(R.id.createButton);
@@ -50,6 +53,7 @@ private Button searchButton;
         searchButton = (Button)findViewById(R.id.searchButton);
         createButton.setText("Create Album");
         deleteButton.setText("Delete Album");
+
         listItems=user.getAlbumList();
         adapter=new ArrayAdapter<Album>(this,
                 android.R.layout.simple_list_item_1,
